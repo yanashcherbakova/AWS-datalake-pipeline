@@ -33,3 +33,5 @@ def get_s3_client():
         region_name=os.getenv("AWS_REGION")
     )
     return session.client("s3")
+
+ 
