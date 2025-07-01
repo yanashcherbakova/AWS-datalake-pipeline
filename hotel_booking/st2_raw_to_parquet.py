@@ -44,6 +44,7 @@ print(f"🟢 Removed {before - after} rows with invalid arrival dates (NaT)")
 df["is_repeated_guest"] = df["is_repeated_guest"] == 1
 df["is_canceled"] = df["is_canceled"] == 1
 df["underage_guests"] = (df['children'] > 0) | (df['babies'] > 0)
+df["children"] = df["children"].fillna(0).astype(int)
 print("🟢 Boolean fixed")
 
 df.drop(["agent", "company", "reserved_room_type", 'assigned_room_type', 'days_in_waiting_list'], axis=1, inplace=True)

@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 from kaggle.api.kaggle_api_extended import KaggleApi
 import zipfile
 import boto3
+import pandas as pd
+from io import BytesIO
 
 
 def download_from_kaggle(api, slug, path):
@@ -34,4 +36,8 @@ def get_s3_client():
     )
     return session.client("s3")
 
- 
+def s3_download_parquet(s3, bucket, key):
+    obj=s3.get_object(Bucket=bucket, Key=key)
+    df = pd.read_parquet(BytesIO(obj["Body"].read()))
+    return df
+    
